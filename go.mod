@@ -5,7 +5,6 @@ go 1.13
 require (
 	github.com/beevik/etree v1.1.0
 	github.com/crewjam/httperr v0.0.0-20190612203328-a946449404da
-	github.com/crewjam/saml v0.4.0
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dchest/uniuri v0.0.0-20160212164326-8902c56451e9
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
