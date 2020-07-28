@@ -2,6 +2,7 @@ package samlsp
 
 import (
 	"encoding/xml"
+	"fmt"
 	"net/http"
 
 	"github.com/crewjam/saml"
@@ -156,7 +157,7 @@ func (m *Middleware) HandleStartAuthFlow(w http.ResponseWriter, r *http.Request)
 
 	if binding == saml.HTTPRedirectBinding {
 		redirectURL := authReq.Redirect(relayState)
-		w.Header().Add("Location", redirectURL.String())
+		w.Header().Add("Location", fmt.Sprintf(`%s&%s`, redirectURL.String(), r.URL.RawQuery))
 		w.WriteHeader(http.StatusFound)
 		return
 	}
