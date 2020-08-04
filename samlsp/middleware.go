@@ -3,6 +3,7 @@ package samlsp
 import (
 	"encoding/xml"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/Technology-HFocus/saml"
@@ -86,6 +87,7 @@ func (m *Middleware) serveACS(w http.ResponseWriter, r *http.Request) {
 
 	assertion, err := m.ServiceProvider.ParseResponse(r, possibleRequestIDs)
 	if err != nil {
+		log.Printf("ERROR: %v", err)
 		m.OnError(w, r, err)
 		return
 	}
