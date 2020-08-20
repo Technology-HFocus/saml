@@ -46,6 +46,13 @@ type Middleware struct {
 	Binding         string // either saml.HTTPPostBinding or saml.HTTPRedirectBinding
 	RequestTracker  RequestTracker
 	Session         SessionProvider
+	Logger          Logger
+}
+
+// Logger is the interface that implements the system logging tool
+type Logger interface {
+	Info(text string)
+	Error(err error)
 }
 
 // ServeHTTP implements http.Handler and serves the SAML-specific HTTP endpoints
@@ -188,6 +195,7 @@ func (m *Middleware) CreateSessionFromAssertion(w http.ResponseWriter, r *http.R
 		}
 		m.RequestTracker.StopTrackingRequest(w, r, trackedRequestIndex)
 
+		m.Logger.Info(`URI Redirect: ` + trackedRequest.URI)
 		redirectURI = trackedRequest.URI
 	}
 
