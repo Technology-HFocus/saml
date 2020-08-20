@@ -195,14 +195,18 @@ func (m *Middleware) CreateSessionFromAssertion(w http.ResponseWriter, r *http.R
 		}
 		m.RequestTracker.StopTrackingRequest(w, r, trackedRequestIndex)
 
-		m.Logger.Info(`URI Redirect: ` + trackedRequest.URI)
 		redirectURI = trackedRequest.URI
+	} else {
+		m.Logger.Info(`No URI Redirect`)
 	}
 
 	if err := m.Session.CreateSession(w, r, assertion); err != nil {
 		m.OnError(w, r, err)
+		m.Logger.Error(err)
 		return
 	}
+
+	m.Logger.Info(`URI Redirect: ` + redirectURI)
 
 	http.Redirect(w, r, redirectURI, http.StatusFound)
 }
