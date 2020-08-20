@@ -171,6 +171,7 @@ func New(opts Options) (*Middleware, error) {
 		Binding:         "",
 		OnError:         onError,
 		Session:         DefaultSessionProvider(opts),
+		DefaultRedirect: `/`,
 	}
 	m.RequestTracker = DefaultRequestTracker(opts, &m.ServiceProvider)
 

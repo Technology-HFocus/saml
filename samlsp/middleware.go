@@ -47,6 +47,7 @@ type Middleware struct {
 	RequestTracker  RequestTracker
 	Session         SessionProvider
 	Logger          Logger
+	DefaultRedirect string
 }
 
 // Logger is the interface that implements the system logging tool
@@ -186,7 +187,7 @@ func (m *Middleware) HandleStartAuthFlow(w http.ResponseWriter, r *http.Request)
 
 // CreateSessionFromAssertion is invoked by ServeHTTP when we have a new, valid SAML assertion.
 func (m *Middleware) CreateSessionFromAssertion(w http.ResponseWriter, r *http.Request, assertion *saml.Assertion) {
-	redirectURI := "/"
+	redirectURI := m.DefaultRedirect
 	if trackedRequestIndex := r.Form.Get("RelayState"); trackedRequestIndex != "" {
 		trackedRequest, err := m.RequestTracker.GetTrackedRequest(r, trackedRequestIndex)
 		if err != nil {
