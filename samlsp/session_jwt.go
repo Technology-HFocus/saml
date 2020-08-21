@@ -120,6 +120,7 @@ type Attributes map[string][]string
 // Get returns the first attribute named `key` or an empty string if
 // no such attributes is present.
 func (a Attributes) Get(key string) string {
+	fmt.Println(fmt.Sprintf(`Aqui o exemplar: %v`, a))
 	if a == nil {
 		return ""
 	}
