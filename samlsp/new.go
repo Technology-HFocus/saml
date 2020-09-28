@@ -23,6 +23,7 @@ type Options struct {
 	AllowIDPInitiated bool
 	IDPMetadata       *saml.EntityDescriptor
 	ForceAuthn        bool // TODO(ross): this should be *bool
+	IsDefaultACS      bool
 
 	// The following fields exist <= 0.3.0, but are superceded by the new
 	// SessionProvider and RequestTracker interfaces.
@@ -137,6 +138,7 @@ func DefaultServiceProvider(opts Options) saml.ServiceProvider {
 		IDPMetadata:       opts.IDPMetadata,
 		ForceAuthn:        forceAuthn,
 		AllowIDPInitiated: opts.AllowIDPInitiated,
+		IsDefaultACS:      opts.IsDefaultACS,
 	}
 }
 
