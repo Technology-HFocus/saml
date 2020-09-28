@@ -101,6 +101,9 @@ type ServiceProvider struct {
 	// SignatureVerifier, if non-nil, allows you to implement an alternative way
 	// to verify signatures.
 	SignatureVerifier SignatureVerifier
+
+	// IsDefaultACS
+	IsDefaultACS bool
 }
 
 // MaxIssueDelay is the longest allowed time between when a SAML assertion is
@@ -186,7 +189,7 @@ func (sp *ServiceProvider) Metadata() *EntityDescriptor {
 						Binding:   HTTPPostBinding,
 						Location:  sp.AcsURL.String(),
 						Index:     1,
-						IsDefault: &sp.AllowIDPInitiated,
+						IsDefault: &sp.IsDefaultACS,
 					},
 				},
 			},
