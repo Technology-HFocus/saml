@@ -183,9 +183,10 @@ func (sp *ServiceProvider) Metadata() *EntityDescriptor {
 
 				AssertionConsumerServices: []IndexedEndpoint{
 					{
-						Binding:  HTTPPostBinding,
-						Location: sp.AcsURL.String(),
-						Index:    1,
+						Binding:   HTTPPostBinding,
+						Location:  sp.AcsURL.String(),
+						Index:     1,
+						IsDefault: &sp.AllowIDPInitiated,
 					},
 				},
 			},
